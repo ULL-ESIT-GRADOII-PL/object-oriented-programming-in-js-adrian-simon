@@ -1,11 +1,17 @@
 (function(exports) {
     "use strict";
-    function selectMedida(medida){
-      console.log(medida);
-    }
+ 
     function Medida(valor, tipo) {
         /* tipo es opcional. Debería admitir  new Medida("45.2 Km") */
         /* ademas de new Medida(45.2, "Km") */
+        var value = valor;
+        var type = tipo;
+        this.getValor = function(){
+          return this.value;
+        }
+         this.getTipo = function(){
+          return this.type;
+        }
     }
 
     function Temperatura(valor, tipo) {
@@ -64,6 +70,8 @@
     exports.selectMedida = function(){
       var valor = document.getElementById('medida').value;
       console.log(valor)
+      var prueba = new Medida(3,"km")
+      console.log(prueba.getValor())
     }
 
 })(this);
