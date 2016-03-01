@@ -24,23 +24,31 @@
     };
 
     function Temperatura(valor, tipo) {
-        Medida.call(this,valor,tipo);
+        Medida.call(this, valor, tipo);
     };
     Temperatura.prototype = new Medida();
     Temperatura.prototype.constructor = Temperatura;
-    Temperatura.prototype.getTemp = function() {
-        console.log("getTemp: ");
 
+    function Celsius(valor) {
+        Temperatura.call(this, valor, "C");
+    };
+    Celsius.prototype = new Temperatura();
+    Celsius.prototype.constructor = Temperatura;
+    Celsius.prototype.toFarenheit = function() {
+        this.valor = (this.valor * 9 / 5) + 32;
+        return this.valor;
     }
-
-    function Celsius(valor) {};
 
     function Farenheit(valor) {
-        this.toCelsius = function() {
-            valor = (valor - 32) * 5 / 9;
-            return valor;
-        }
+        Temperatura.call(this, valor, "F");
+    };
+    Farenheit.prototype = new Temperatura();
+    Farenheit.prototype.constructor = Temperatura;
+    Farenheit.prototype.toCelsius = function() {
+        this.valor = (this.valor - 32) * 5 / 9;
+            return this.valor;
     }
+
 
     exports.Temperatura = Temperatura;
     exports.Celsius = Celsius;
@@ -80,11 +88,12 @@
     exports.selectMedida = function() {
         var valor = document.getElementById('medida').value;
         var temp = new Medida(3, "km");
-        
+
         console.log(temp.getValor())
-        var temp = new Temperatura(4,"k");
-        console.log(temp.valor);
-        temp.getTemp();
+        var cel = new Celsius(32);
+        console.log(cel.toFarenheit());
+        var far = new Farenheit(32);
+        console.log(far.toCelsius());
 
 
     }
