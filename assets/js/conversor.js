@@ -1,21 +1,36 @@
 (function(exports) {
     "use strict";
- 
+
     function Medida(valor, tipo) {
         /* tipo es opcional. Debería admitir  new Medida("45.2 Km") */
         /* ademas de new Medida(45.2, "Km") */
-        var value = valor;
-        var type = tipo;
-        this.getValor = function(){
-          return this.value;
+        this.setValor = function(aux) {
+            valor = aux;
         }
-         this.getTipo = function(){
-          return this.type;
+        this.setTipo = function(aux) {
+            tipo = aux;
+        }
+        this.getValor = function() {
+            console.log("Medida getVal")
+            return valor;
+        }
+        this.getTipo = function() {
+            return tipo;
         }
     }
 
     function Temperatura(valor, tipo) {
         /* tipo es opcional. Debería admitir new Medida("45.2 F") */
+        // this.prototype.getTemp = function() {
+
+        //     console.log("hola")
+
+        //     return valor;
+        // }
+    }
+    Temperatura.prototype = new Medida();
+    Temperatura.prototype.getTemp = function() {
+        console.log("getTemp");
     }
 
     function Celsius(valor) {
@@ -67,11 +82,16 @@
             elemento.innerHTML = "";
     }
 
-    exports.selectMedida = function(){
-      var valor = document.getElementById('medida').value;
-      console.log(valor)
-      var prueba = new Medida(3,"km")
-      console.log(prueba.getValor())
+    exports.selectMedida = function() {
+        var valor = document.getElementById('medida').value;
+        var prueba = new Medida(3, "km");
+        prueba.setValor(5);
+        console.log(prueba.getValor())
+        var temp = new Temperatura();
+        temp.getValor();
+        temp.getTemp();
+
+
     }
 
 })(this);
