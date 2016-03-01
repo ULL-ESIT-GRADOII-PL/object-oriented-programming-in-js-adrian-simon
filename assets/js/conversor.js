@@ -4,41 +4,36 @@
     function Medida(valor, tipo) {
         /* tipo es opcional. Debería admitir  new Medida("45.2 Km") */
         /* ademas de new Medida(45.2, "Km") */
-        this.setValor = function(aux) {
-            valor = aux;
-        }
-        this.setTipo = function(aux) {
-            tipo = aux;
-        }
-        this.getValor = function() {
-            console.log("Medida getVal")
-            return valor;
-        }
-        this.getTipo = function() {
-            return tipo;
-        }
-    }
+        this.valor = valor;
+        this.tipo = tipo;
+        // this.setValor = function(aux) {
+        //     valor = aux;
+        // }
+        // this.setTipo = function(aux) {
+        //     tipo = aux;
+        // }
 
-    function Temperatura(valor, tipo) {
-        /* tipo es opcional. Debería admitir new Medida("45.2 F") */
-        // this.prototype.getTemp = function() {
-
-        //     console.log("hola")
-
-        //     return valor;
+        // this.getTipo = function() {
+        //     return tipo;
         // }
     }
+
+    Medida.prototype.getValor = function() {
+        console.log("Medida getVal = " + this.valor)
+        return this.valor;
+    };
+
+    function Temperatura(valor, tipo) {
+        Medida.call(this,valor,tipo);
+    };
     Temperatura.prototype = new Medida();
+    Temperatura.prototype.constructor = Temperatura;
     Temperatura.prototype.getTemp = function() {
-        console.log("getTemp");
+        console.log("getTemp: ");
+
     }
 
-    function Celsius(valor) {
-        this.toFarenheit = function() {
-            valor = (valor * 9 / 5) + 32;
-            return valor;
-        }
-    }
+    function Celsius(valor) {};
 
     function Farenheit(valor) {
         this.toCelsius = function() {
@@ -84,11 +79,11 @@
 
     exports.selectMedida = function() {
         var valor = document.getElementById('medida').value;
-        var prueba = new Medida(3, "km");
-        prueba.setValor(5);
-        console.log(prueba.getValor())
-        var temp = new Temperatura();
-        temp.getValor();
+        var temp = new Medida(3, "km");
+        
+        console.log(temp.getValor())
+        var temp = new Temperatura(4,"k");
+        console.log(temp.valor);
         temp.getTemp();
 
 
