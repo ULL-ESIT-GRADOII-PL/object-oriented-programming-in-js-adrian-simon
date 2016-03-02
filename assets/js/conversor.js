@@ -139,18 +139,4 @@
                 elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
         }
     }
-
-    // exports.selectMedida = function() {
-    //     var valor = document.getElementById('medida').value;
-    //     var temp = new Medida(3, "km");
-
-    //     console.log(temp.getValor())
-    //     var cel = new Celsius(32);
-    //     console.log(cel.toFarenheit());
-    //     var far = new Farenheit(32);
-    //     console.log(far.toCelsius());
-
-
-    // }
-
 })(this);
