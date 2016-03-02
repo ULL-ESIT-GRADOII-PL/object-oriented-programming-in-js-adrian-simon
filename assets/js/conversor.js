@@ -46,56 +46,89 @@
     Farenheit.prototype.constructor = Temperatura;
     Farenheit.prototype.toCelsius = function() {
         this.valor = (this.valor - 32) * 5 / 9;
-            return this.valor;
+        return this.valor;
+    }
+    Farenheit.prototype.toKelvin = function() {
+        this.valor = (5 * (this.valor - 32) / 9) + 273.15
+        return this.valor;
     }
 
+    function Kelvin(valor) {
+        Temperatura.call(this, valor, "K");
+    }
+
+    Kelvin.prototype = new Temperatura();
+    Kelvin.prototype.constructor = Temperatura;
+    Kelvin.prototype.toCelsius = function() {
+        this.valor = (this.valor - 32) * 5 / 9;
+        return this.valor;
+    }
 
     exports.Temperatura = Temperatura;
     exports.Celsius = Celsius;
     exports.Farenheit = Farenheit;
 
     exports.convertir = function() {
-        var valor = document.getElementById('convert').value,
-            elemento = document.getElementById('converted'),
-            /* Extienda la RegeExp a la especificación. use una XRegExp */
-            regexp = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([a-z,A-Z]+)\s*$/i,
-            valor = valor.match(regexp);
+        var valor = document.getElementById('convert').value;
+        valor = valor.replace(/\s/g, '');
+        var elemento = document.getElementById('converted');
+            
+        var cadena = XRegExp('(?<valor>[+-]?\\d+(\\.\\d+)?([e][+-]?\\d+)?)# valor  \n\
+                    (?<tipo>[a-z]+)# tipo   \n\
+                    (?<to>[to]?) #to \n\
+                    (?<tipo2>[fck])#tipo2', 'x');
+        var match = XRegExp.exec(valor, cadena);
+        console.log("Valor: " + match.match)
+        console.log("Tipo inicial: " + match.tipo)
+        console.log("Tipo final: " + match.tipo2)
 
-        if (valor) {
-            var numero = valor[1],
-                tipo = valor[2].toLowerCase();
-
+        if (match) {
+            var numero = match.valor;
+            var tipo = match.tipo.toLowerCase();
+            tipo = tipo.charAt(0);
             numero = parseFloat(numero);
+            var tipo2 = match.tipo2.toLowerCase();
             console.log("Valor: " + numero + ", Tipo: " + tipo);
-
+            console.log(tipo)
+            var nueva;
             switch (tipo) {
                 case 'c':
-                    var celsius = new Celsius(numero);
-                    elemento.innerHTML = celsius.toFarenheit().toFixed(2) + " Farenheit";
+                    nueva = new Celsius(numero);
                     break;
                 case 'f':
-                    var farenheit = new Farenheit(numero);
-                    elemento.innerHTML = farenheit.toCelsius().toFixed(2) + " Celsius";
+                    nueva = new Farenheit(numero);
                     break;
+                case 'k':
+                    nueva = new Kelvin(numero);
+                default:
+                    elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+            }
+            switch (tipo2) {
+                case 'k':
+                    elemento.innerHTML = nueva.toKelvin().toFixed(2) + " Kelvin";
+                case 'c':
+                    elemento.innerHTML = nueva.toCelsius().toFixed(2) + " Celsius";
+                case 'f':
+                    elemento.innerHTML = nueva.toFarenheit().toFixed(2) + " Farenheit";
 
                 default:
-                    /* rellene este código */
+                    elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
             }
         } else
-            elemento.innerHTML = "";
+            elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
     }
 
-    exports.selectMedida = function() {
-        var valor = document.getElementById('medida').value;
-        var temp = new Medida(3, "km");
+    // exports.selectMedida = function() {
+    //     var valor = document.getElementById('medida').value;
+    //     var temp = new Medida(3, "km");
 
-        console.log(temp.getValor())
-        var cel = new Celsius(32);
-        console.log(cel.toFarenheit());
-        var far = new Farenheit(32);
-        console.log(far.toCelsius());
+    //     console.log(temp.getValor())
+    //     var cel = new Celsius(32);
+    //     console.log(cel.toFarenheit());
+    //     var far = new Farenheit(32);
+    //     console.log(far.toCelsius());
 
 
-    }
+    // }
 
 })(this);
