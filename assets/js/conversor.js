@@ -86,51 +86,58 @@
         var cadena = XRegExp('(?<valor>[+-]?\\d+(\\.\\d+)?([e][+-]?\\d+)?)# valor  \n\
                     (?<tipo>[a-z]+)# tipo   \n\
                     (?<to>[to]?) #to \n\
-                    (?<tipo2>[fck])#tipo2', 'x');
+                    (?<tipo2>[fck])#tipo2', 'xi');
         var match = XRegExp.exec(valor, cadena);
-        console.log("Valor: " + match.match)
-        console.log("Tipo inicial: " + match.tipo)
-        console.log("Tipo final: " + match.tipo2)
-
-        if (match) {
-            var numero = match.valor;
-            var tipo = match.tipo.toLowerCase();
-            tipo = tipo.charAt(0);
-            numero = parseFloat(numero);
-            var tipo2 = match.tipo2.toLowerCase();
-
-            console.log("Tipo: " + tipo)
-            console.log("Tip2o: " + tipo2)
-
-            var nueva;
-            switch (tipo) {
-                case 'c':
-                    nueva = new Celsius(numero);
-                    break;
-                case 'f':
-                    nueva = new Farenheit(numero);
-                    break;
-                case 'k':
-                    nueva = new Kelvin(numero);
-                default:
-                    elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
-            }
-            switch (tipo2) {
-                case 'k':
-                    elemento.innerHTML = nueva.toKelvin().toFixed(2) + " Kelvin";
-                    break;
-                case 'c':
-                    elemento.innerHTML = nueva.toCelsius().toFixed(2) + " Celsius";
-                    break;
-                case 'f':
-                    elemento.innerHTML = nueva.toFarenheit().toFixed(2) + " Farenheit";
-                    break;
-
-                default:
-                    elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
-            }
-        } else
+        if (match == null) {
             elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+
+        } else {
+
+
+            console.log("Valor: " + match.match)
+            console.log("Tipo inicial: " + match.tipo)
+            console.log("Tipo final: " + match.tipo2)
+
+            if (match) {
+                var numero = match.valor;
+                var tipo = match.tipo.toLowerCase();
+                tipo = tipo.charAt(0);
+                numero = parseFloat(numero);
+                var tipo2 = match.tipo2.toLowerCase();
+
+                console.log("Tipo: " + tipo)
+                console.log("Tip2o: " + tipo2)
+
+                var nueva;
+                switch (tipo) {
+                    case 'c':
+                        nueva = new Celsius(numero);
+                        break;
+                    case 'f':
+                        nueva = new Farenheit(numero);
+                        break;
+                    case 'k':
+                        nueva = new Kelvin(numero);
+                    default:
+                        elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+                }
+                switch (tipo2) {
+                    case 'k':
+                        elemento.innerHTML = nueva.toKelvin().toFixed(2) + " Kelvin";
+                        break;
+                    case 'c':
+                        elemento.innerHTML = nueva.toCelsius().toFixed(2) + " Celsius";
+                        break;
+                    case 'f':
+                        elemento.innerHTML = nueva.toFarenheit().toFixed(2) + " Farenheit";
+                        break;
+
+                    default:
+                        elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+                }
+            } else
+                elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+        }
     }
 
     // exports.selectMedida = function() {
