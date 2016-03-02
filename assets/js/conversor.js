@@ -34,8 +34,13 @@
     };
     Celsius.prototype = new Temperatura();
     Celsius.prototype.constructor = Temperatura;
+
     Celsius.prototype.toFarenheit = function() {
         this.valor = (this.valor * 9 / 5) + 32;
+        return this.valor;
+    }
+    Celsius.prototype.toKelvin = function() {
+        this.valor = this.valor + 273.15;
         return this.valor;
     }
 
@@ -44,6 +49,7 @@
     };
     Farenheit.prototype = new Temperatura();
     Farenheit.prototype.constructor = Temperatura;
+
     Farenheit.prototype.toCelsius = function() {
         this.valor = (this.valor - 32) * 5 / 9;
         return this.valor;
@@ -60,7 +66,11 @@
     Kelvin.prototype = new Temperatura();
     Kelvin.prototype.constructor = Temperatura;
     Kelvin.prototype.toCelsius = function() {
-        this.valor = (this.valor - 32) * 5 / 9;
+        this.valor = this.valor - 273.15;
+        return this.valor;
+    }
+    Kelvin.prototype.toFarenheit = function() {
+        this.valor = (this.valor * 1.8) - 459.67;
         return this.valor;
     }
 
@@ -72,7 +82,7 @@
         var valor = document.getElementById('convert').value;
         valor = valor.replace(/\s/g, '');
         var elemento = document.getElementById('converted');
-            
+
         var cadena = XRegExp('(?<valor>[+-]?\\d+(\\.\\d+)?([e][+-]?\\d+)?)# valor  \n\
                     (?<tipo>[a-z]+)# tipo   \n\
                     (?<to>[to]?) #to \n\
@@ -88,8 +98,10 @@
             tipo = tipo.charAt(0);
             numero = parseFloat(numero);
             var tipo2 = match.tipo2.toLowerCase();
-            console.log("Valor: " + numero + ", Tipo: " + tipo);
-            console.log(tipo)
+
+            console.log("Tipo: " + tipo)
+            console.log("Tip2o: " + tipo2)
+
             var nueva;
             switch (tipo) {
                 case 'c':
@@ -106,10 +118,13 @@
             switch (tipo2) {
                 case 'k':
                     elemento.innerHTML = nueva.toKelvin().toFixed(2) + " Kelvin";
+                    break;
                 case 'c':
                     elemento.innerHTML = nueva.toCelsius().toFixed(2) + " Celsius";
+                    break;
                 case 'f':
                     elemento.innerHTML = nueva.toFarenheit().toFixed(2) + " Farenheit";
+                    break;
 
                 default:
                     elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
