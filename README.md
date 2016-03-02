@@ -9,7 +9,7 @@ Este repositorio aloja la práctica de conversión de tipos, realizada con html,
 
 **Página del autor**
 
-* [http://alu0100614220.github.io/](Adrian)
+* [Adrian](http://alu0100614220.github.io/)
 * [http://alu0100625066.github.io/](Simon)
 
 
