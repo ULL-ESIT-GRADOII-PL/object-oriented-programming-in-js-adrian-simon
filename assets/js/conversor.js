@@ -74,9 +74,66 @@
         return this.valor;
     }
 
+    function Longitud(valor, tipo) {
+      Medida.call(this, valor, tipo);
+    };
+
+    Longitud.prototype = new Medida();
+    Longitud.prototype.constructor = Longitud;
+
+    function Metro(valor) {
+        Longitud.call(this, valor, "M");
+    }
+
+    Metro.prototype = new Longitud();
+    Metro.prototype.constructor = Longitud;
+    Metro.prototype.toYarda = function() {
+      this.valor = (this.valor / 0.9144);
+      return this.valor;
+    }
+    Metro.prototype.toPulgada = function() {
+      this.valor = (this.valor * 39.3701);
+      return this.valor;
+    }
+
+    function Pulgada(valor) {
+        Longitud.call(this, valor, "P");
+    }
+
+    Pulgada.prototype = new Longitud();
+    Pulgada.prototype.constructor = Longitud;
+    Pulgada.prototype.toMetro = function() {
+      this.valor = (this.valor / 39.3701);
+      return this.valor;
+    }
+    Pulgada.prototype.toYarda = function() {
+      this.valor = (this.valor / 36);
+      return this.valor;
+    }
+
+    function Yarda(valor) {
+        Longitud.call(this, valor, "Y");
+    }
+
+    Yarda.prototype = new Longitud();
+    Yarda.prototype.constructor = Longitud;
+    Yarda.prototype.toMetro = function() {
+      this.valor = (this.valor * 0.9144);
+      return this.valor;
+    }
+    Yarda.prototype.toPulgada = function() {
+      this.valor = (this.valor * 36);
+      return this.valor;
+    }
+
     exports.Temperatura = Temperatura;
+    exports.Longitud = Longitud;
     exports.Celsius = Celsius;
     exports.Farenheit = Farenheit;
+    exports.Kelvin = Kelvin;
+    exports.Metro = Metro;
+    exports.Yarda = Yarda;
+    exports.Pulgada = Pulgada;
 
     exports.convertir = function() {
         var valor = document.getElementById('convert').value;
@@ -86,7 +143,7 @@
         var cadena = XRegExp('(?<valor>[+-]?\\d+(\\.\\d+)?([e][+-]?\\d+)?)# valor  \n\
                     (?<tipo>[a-z]+)# tipo   \n\
                     (?<to>[to]?) #to \n\
-                    (?<tipo2>[fck])#tipo2', 'xi');
+                    (?<tipo2>[fckmyp])#tipo2', 'xi');
         var match = XRegExp.exec(valor, cadena);
         if (match == null) {
             elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
@@ -106,7 +163,7 @@
                 var tipo2 = match.tipo2.toLowerCase();
 
                 console.log("Tipo: " + tipo)
-                console.log("Tip2o: " + tipo2)
+                console.log("Tipo 2: " + tipo2)
 
                 var nueva;
                 switch (tipo) {
@@ -118,6 +175,16 @@
                         break;
                     case 'k':
                         nueva = new Kelvin(numero);
+                        break;
+                    case 'm':
+                        nueva = new Metro(numero);
+                        break;
+                    case 'y':
+                        nueva = new Yarda(numero);
+                        break;
+                    case 'p':
+                        nueva = new Pulgada(numero);
+                        break;
                     default:
                         elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
                 }
@@ -131,7 +198,15 @@
                     case 'f':
                         elemento.innerHTML = nueva.toFarenheit().toFixed(2) + " Farenheit";
                         break;
-
+                    case 'm':
+                        elemento.innerHTML = nueva.toMetro().toFixed(2) + " Metros";
+                        break;
+                    case 'y':
+                        elemento.innerHTML = nueva.toYarda().toFixed(2) + " Yardas";
+                        break;
+                    case 'p':
+                        elemento.innerHTML = nueva.toPulgada().toFixed(2) + " Pulgadas";
+                        break;
                     default:
                         elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
                 }
