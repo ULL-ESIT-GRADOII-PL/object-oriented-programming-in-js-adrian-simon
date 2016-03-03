@@ -13,45 +13,45 @@
     }
 
     Medida.prototype.getValor = function() {
-        console.log("Medida getVal = " + this.valor)
+        console.log("Medida getVal = " + this.valor);
         return this.valor;
     };
 
     function Temperatura(valor, tipo) {
         Medida.call(this, valor, tipo);
-    };
+    }
     Temperatura.prototype = new Medida("32 c");
     Temperatura.prototype.constructor = Temperatura;
 
     function Celsius(valor) {
         Temperatura.call(this, valor, "C");
-    };
+    }
     Celsius.prototype = new Temperatura("32 c");
     Celsius.prototype.constructor = Temperatura;
 
     Celsius.prototype.toFarenheit = function() {
         this.valor = (this.valor * 9 / 5) + 32;
         return this.valor;
-    }
+    };
     Celsius.prototype.toKelvin = function() {
         this.valor = this.valor + 273.15;
         return this.valor;
-    }
+    };
 
     function Farenheit(valor) {
         Temperatura.call(this, valor, "F");
-    };
+    }
     Farenheit.prototype = new Temperatura("32 f");
     Farenheit.prototype.constructor = Temperatura;
 
     Farenheit.prototype.toCelsius = function() {
         this.valor = (this.valor - 32) * 5 / 9;
         return this.valor;
-    }
+    };
     Farenheit.prototype.toKelvin = function() {
-        this.valor = (5 * (this.valor - 32) / 9) + 273.15
+        this.valor = (5 * (this.valor - 32) / 9) + 273.15;
         return this.valor;
-    }
+    };
 
     function Kelvin(valor) {
         Temperatura.call(this, valor, "K");
@@ -62,15 +62,15 @@
     Kelvin.prototype.toCelsius = function() {
         this.valor = this.valor - 273.15;
         return this.valor;
-    }
+    };
     Kelvin.prototype.toFarenheit = function() {
         this.valor = (this.valor * 1.8) - 459.67;
         return this.valor;
-    }
+    };
 
     function Longitud(valor, tipo) {
         Medida.call(this, valor, tipo);
-    };
+    }
 
     Longitud.prototype = new Medida("32 km");
     Longitud.prototype.constructor = Longitud;
@@ -84,11 +84,11 @@
     Metro.prototype.toYarda = function() {
         this.valor = (this.valor / 0.9144);
         return this.valor;
-    }
+    };
     Metro.prototype.toPulgada = function() {
         this.valor = (this.valor * 39.3701);
         return this.valor;
-    }
+    };
 
     function Pulgada(valor) {
         Longitud.call(this, valor, "P");
@@ -99,11 +99,11 @@
     Pulgada.prototype.toMetro = function() {
         this.valor = (this.valor / 39.3701);
         return this.valor;
-    }
+    };
     Pulgada.prototype.toYarda = function() {
         this.valor = (this.valor / 36);
         return this.valor;
-    }
+    };
 
     function Yarda(valor) {
         Longitud.call(this, valor, "Y");
@@ -114,11 +114,11 @@
     Yarda.prototype.toMetro = function() {
         this.valor = (this.valor * 0.9144);
         return this.valor;
-    }
+    };
     Yarda.prototype.toPulgada = function() {
         this.valor = (this.valor * 36);
         return this.valor;
-    }
+    };
 
     exports.Temperatura = Temperatura;
     exports.Longitud = Longitud;
@@ -137,17 +137,17 @@
                     (?<to>[ ]+(?:to[ ]+)?)                                      #to \n\
                     (?<tipo2>[a-z]+)[ ]*$                                       #tipo2', 'xi');
         var match = XRegExp.exec(valor, cadena);
-        console.log(match)
-        if (match == null) {
-            elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+        console.log(match);
+        if (match === null) {
+            elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K";
             elemento.style.color = 'red';
 
         } else {
             elemento.style.color = 'green';
 
-            console.log("Valor: " + match.match)
-            console.log("Tipo inicial: " + match.tipo)
-            console.log("Tipo final: " + match.tipo2)
+            console.log("Valor: " + match.match);
+            console.log("Tipo inicial: " + match.tipo);
+            console.log("Tipo final: " + match.tipo2);
 
             if (match) {
                 var numero = match.valor;
@@ -156,8 +156,8 @@
                 numero = parseFloat(numero);
                 var tipo2 = match.tipo2.toLowerCase();
 
-                console.log("Tipo: " + tipo)
-                console.log("Tipo 2: " + tipo2)
+                console.log("Tipo: " + tipo);
+                console.log("Tipo 2: " + tipo2);
 
                 var nueva;
                 switch (tipo) {
@@ -213,5 +213,5 @@
             }
 
         }
-    }
+    };
 })(this);
