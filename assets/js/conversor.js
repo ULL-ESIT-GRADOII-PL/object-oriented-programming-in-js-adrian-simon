@@ -132,10 +132,10 @@
     exports.convertir = function() {
         var valor = document.getElementById('convert').value;
         var elemento = document.getElementById('converted');
-        var cadena = XRegExp('(?<valor>[+-]?\\d+(\\.\\d+)?([e][+-]?\\d+)?)# valor  \n\
-                    (?<tipo>[a-z]+)                                       # tipo   \n\
+        var cadena = XRegExp('^(?<valor>[+-]?\\d+(\\.\\d+)?([e][+-]?\\d+)?[ ]*) # valor  \n\
+                    (?<tipo>[a-z]+)                                             # tipo   \n\
                     (?<to>[ ]+(?:to[ ]+)?)                                      #to \n\
-                    (?<tipo2>[a-z]+)[ ]*$                                  #tipo2', 'xi');
+                    (?<tipo2>[a-z]+)[ ]*$                                       #tipo2', 'xi');
         var match = XRegExp.exec(valor, cadena);
         console.log(match)
         if (match == null) {
