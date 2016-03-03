@@ -4,18 +4,12 @@
     function Medida(valor, tipo) {
         /* tipo es opcional. Debería admitir  new Medida("45.2 Km") */
         /* ademas de new Medida(45.2, "Km") */
-        this.valor = valor;
-        this.tipo = tipo;
-        // this.setValor = function(aux) {
-        //     valor = aux;
-        // }
-        // this.setTipo = function(aux) {
-        //     tipo = aux;
-        // }
-
-        // this.getTipo = function() {
-        //     return tipo;
-        // }
+        if (tipo === null) {
+            console.log(valor);
+        } else {
+            this.valor = valor;
+            this.tipo = tipo;
+        }
     }
 
     Medida.prototype.getValor = function() {
@@ -26,13 +20,13 @@
     function Temperatura(valor, tipo) {
         Medida.call(this, valor, tipo);
     };
-    Temperatura.prototype = new Medida();
+    Temperatura.prototype = new Medida("32 c");
     Temperatura.prototype.constructor = Temperatura;
 
     function Celsius(valor) {
         Temperatura.call(this, valor, "C");
     };
-    Celsius.prototype = new Temperatura();
+    Celsius.prototype = new Temperatura("32 c");
     Celsius.prototype.constructor = Temperatura;
 
     Celsius.prototype.toFarenheit = function() {
@@ -47,7 +41,7 @@
     function Farenheit(valor) {
         Temperatura.call(this, valor, "F");
     };
-    Farenheit.prototype = new Temperatura();
+    Farenheit.prototype = new Temperatura("32 f");
     Farenheit.prototype.constructor = Temperatura;
 
     Farenheit.prototype.toCelsius = function() {
@@ -63,7 +57,7 @@
         Temperatura.call(this, valor, "K");
     }
 
-    Kelvin.prototype = new Temperatura();
+    Kelvin.prototype = new Temperatura("32 k");
     Kelvin.prototype.constructor = Temperatura;
     Kelvin.prototype.toCelsius = function() {
         this.valor = this.valor - 273.15;
@@ -75,55 +69,55 @@
     }
 
     function Longitud(valor, tipo) {
-      Medida.call(this, valor, tipo);
+        Medida.call(this, valor, tipo);
     };
 
-    Longitud.prototype = new Medida();
+    Longitud.prototype = new Medida("32 km");
     Longitud.prototype.constructor = Longitud;
 
     function Metro(valor) {
         Longitud.call(this, valor, "M");
     }
 
-    Metro.prototype = new Longitud();
+    Metro.prototype = new Longitud("32 m");
     Metro.prototype.constructor = Longitud;
     Metro.prototype.toYarda = function() {
-      this.valor = (this.valor / 0.9144);
-      return this.valor;
+        this.valor = (this.valor / 0.9144);
+        return this.valor;
     }
     Metro.prototype.toPulgada = function() {
-      this.valor = (this.valor * 39.3701);
-      return this.valor;
+        this.valor = (this.valor * 39.3701);
+        return this.valor;
     }
 
     function Pulgada(valor) {
         Longitud.call(this, valor, "P");
     }
 
-    Pulgada.prototype = new Longitud();
+    Pulgada.prototype = new Longitud("32 P");
     Pulgada.prototype.constructor = Longitud;
     Pulgada.prototype.toMetro = function() {
-      this.valor = (this.valor / 39.3701);
-      return this.valor;
+        this.valor = (this.valor / 39.3701);
+        return this.valor;
     }
     Pulgada.prototype.toYarda = function() {
-      this.valor = (this.valor / 36);
-      return this.valor;
+        this.valor = (this.valor / 36);
+        return this.valor;
     }
 
     function Yarda(valor) {
         Longitud.call(this, valor, "Y");
     }
 
-    Yarda.prototype = new Longitud();
+    Yarda.prototype = new Longitud("32 Y");
     Yarda.prototype.constructor = Longitud;
     Yarda.prototype.toMetro = function() {
-      this.valor = (this.valor * 0.9144);
-      return this.valor;
+        this.valor = (this.valor * 0.9144);
+        return this.valor;
     }
     Yarda.prototype.toPulgada = function() {
-      this.valor = (this.valor * 36);
-      return this.valor;
+        this.valor = (this.valor * 36);
+        return this.valor;
     }
 
     exports.Temperatura = Temperatura;
@@ -137,9 +131,7 @@
 
     exports.convertir = function() {
         var valor = document.getElementById('convert').value;
-        // valor = valor.replace(/\s/g, '');
         var elemento = document.getElementById('converted');
-
         var cadena = XRegExp('(?<valor>[+-]?\\d+(\\.\\d+)?([e][+-]?\\d+)?)# valor  \n\
                     (?<tipo>[a-z]+)                                       # tipo   \n\
                     (?<to>[ ]+(?:to[ ]+)?)                                      #to \n\
