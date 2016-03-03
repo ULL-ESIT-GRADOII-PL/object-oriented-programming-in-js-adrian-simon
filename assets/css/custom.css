@@ -3,7 +3,7 @@ html {
 }
 
 
-footer {
+header {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,7 @@ footer {
     background-color: #222;
 }
 
-footer a {
+header a {
     color: #FFF;
     text-decoration: none;
 }
@@ -30,7 +30,7 @@ span {
 }
 
 @media (max-width: 550px) {
-    footer {
+    header {
         text-align: center;
     }
 }
