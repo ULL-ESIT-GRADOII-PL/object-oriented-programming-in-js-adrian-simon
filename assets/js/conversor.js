@@ -140,9 +140,10 @@
         console.log(match)
         if (match == null) {
             elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+            elemento.style.color = 'red';
 
         } else {
-
+            elemento.style.color = 'green';
 
             console.log("Valor: " + match.match)
             console.log("Tipo inicial: " + match.tipo)
@@ -179,7 +180,8 @@
                         nueva = new Pulgada(numero);
                         break;
                     default:
-                        elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+                        elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K";
+                        elemento.style.color = 'red';
                 }
                 switch (tipo2) {
                     case 'k':
@@ -201,10 +203,15 @@
                         elemento.innerHTML = nueva.toPulgada().toFixed(2) + " Pulgadas";
                         break;
                     default:
-                        elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+                        elemento.style.color = 'red';
+                        elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K";
+                        break;
                 }
-            } else
-                elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K"
+            } else {
+                elemento.innerHTML = "Introduzca por ejemplo -32.5e10f to K";
+                elemento.style.color = 'red';
+            }
+
         }
     }
 })(this);
